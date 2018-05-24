@@ -6,8 +6,4 @@ RUN pip install --no-cache-dir -r /usr/local/src/requirements.txt
 COPY . /usr/local/src
 RUN pip install --no-cache-dir -e . && python setup.py clean --all
 EXPOSE 3031
-CMD [ "uwsgi", "--socket", "0.0.0.0:3031", \
-               "--uid", "uwsgi", \
-               "--plugins", "python3", \
-               "--protocol", "uwsgi", \
-               "--wsgi", "librarian:wsgi" ]
+CMD [ "uwsgi", "--yaml /usr/local/src/uwsgi.yaml" ]

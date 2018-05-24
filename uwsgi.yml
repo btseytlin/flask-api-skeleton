@@ -1,0 +1,6 @@
+uwsgi:
+  socket: "/tmp/%n.sock"
+  plugins:
+    - "python3"
+  protocol: "uwsgi"
+  wsgi-file: "/usr/local/src/librarian/wsgi.py"
