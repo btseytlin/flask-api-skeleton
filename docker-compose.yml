@@ -1,0 +1,50 @@
+version: "2"
+services:
+  db:
+    image: postgres:alpine
+    env_file:
+      - .env
+  api:
+    build: librarian/api/.
+    image: billing:latest
+    ports:
+      - 8000:8000
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - './api:/usr/local/api'
+    env_file:
+      - .env
+  api_celery_worker:
+    build: librarian/api/.
+    image: billing:latest
+    command: celery -A api.tasks:celery_app worker --loglevel=info
+    links:
+      - rabbitmq
+      - db
+    depends_on:
+      - rabbitmq
+      - db
+    volumes:
+      - './api/api:/src/api'
+      - "./models/models:/usr/local/lib/python3.6/site-packages/models"
+      - "./utils/utils:/usr/local/lib/python3.6/site-packages/utils"
+    env_file:
+      - .env
+  admin:
+    build: admin/.
+    image: billing_admin:latest
+    ports:
+      - 5000:8000
+    volumes:
+      - './admin/admin:/src/admin'
+      - "./models/models:/usr/local/lib/python3.6/site-packages/models"
+      - "./utils/utils:/usr/local/lib/python3.6/site-packages/utils"
+    links:
+      - db
+    depends_on:
+      - db
+    env_file:
+      - .env

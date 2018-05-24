@@ -1,0 +1,8 @@
+flask==1.0.2
+psycopg2==2.7.4
+sqlalchemy==1.2.7
+alembic==0.9.9
+marshmallow==2.15.3
+toastedmarshmallow==0.2.6
+Flask-Injector==0.10.1
+PyYaml==3.12
