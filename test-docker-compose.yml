@@ -3,13 +3,10 @@ services:
   db:
     image: postgres:alpine
     env_file:
-      - .env
+      - test.env
   api:
-    build: .
     image: librarian:dev
-    command: uwsgi --yaml /usr/local/src/uwsgi.yml
-    ports:
-      - 80:8000
+    command: pytest -x
     links:
       - db
     depends_on:
@@ -17,4 +14,4 @@ services:
     volumes:
       - "./:/usr/local/src/"
     env_file:
-      - .env
+      - test.env

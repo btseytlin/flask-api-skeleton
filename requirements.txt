@@ -6,3 +6,4 @@ marshmallow==2.15.3
 toastedmarshmallow==0.2.6
 Flask-Injector==0.10.1
 PyYaml==3.12
+pytest

@@ -1,6 +1,8 @@
 uwsgi:
-  socket: "/tmp/%n.sock"
+  protocol: http
+  callable: app
+  wsgi-file: /usr/local/src/librarian/wsgi.py
+  py-autoreload: 1
+  socket: 0.0.0.0:8000
   plugins:
-    - "python3"
-  protocol: "uwsgi"
-  wsgi-file: "/usr/local/src/librarian/wsgi.py"
+    - python3
